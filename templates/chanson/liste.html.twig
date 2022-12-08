@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des chansons
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="wrapper">
+		<h1 class="mb-5">Toutes nos chansons</h1>
+		{% for chanson in chansons %}
+			<div class="card">
+				<p class="card-body">
+					{{chanson.titre}}
+					-
+					{{chanson.auteur}}</p>
+			</div>
+
+		{% endfor %}
+
+	</div>
+{% endblock %}

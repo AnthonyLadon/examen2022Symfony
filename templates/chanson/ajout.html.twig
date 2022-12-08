@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout chanson
+{% endblock %}
+
+{% block body %}
+	<h1>Ajouter une chanson</h1>
+	{# Ajout d'un theme qui decore automatiquement mes formulaire via bootstrap
+		J'ai ajouté le lien dans configuration/packages/twig.yaml #}
+	{% form_theme form 'bootstrap_5_horizontal_layout.html.twig' %}
+	{{ form_start(form) }}
+
+	{{ form_end(form) }}
+{% endblock %}
