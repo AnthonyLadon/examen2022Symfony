@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des chansons
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="card">
+		<p class="card-header">Titre:
+			{{chanson.titre}}</p>
+		<p class="card-body">Genre:
+			{# {{chanson.genre.nom}}</p> #}
+		</p>
+		<p class="card-body">Auteur:
+			{{chanson.auteur}}</p>
+		<p class="card-body">Album:
+			{{chanson.nomAlbum}}</p>
+		<p class="card-body">Paroles:
+			{{chanson.paroles}}</p>
+		<p class="card-footer">Date de l'ajout:
+			{{chanson.dateAjout}}</p>
+		<p class="card-footer">Date de parution:
+			{{chanson.dateSortie}}</p>
+		<p class="card-footer">Votes:
+			{{chanson.votes}}</p>
+	</div>
+	<a href="{{path('supprimerChanson', {id:chanson.id})}}">Supprimer la chanson</a>
+{% endblock %}

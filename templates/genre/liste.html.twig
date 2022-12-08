@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Genres
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="wrapper">
+		<h1 class="mt-5 mb-5 text-center">Les différents genres</h1>
+		<ul class="list-group">
+			{% for genre in genres %}
+				<li class="list-group-item">{{genre.nom}}</li>
+			</ul>
+		{% endfor %}
+
+	</div>
+{% endblock %}

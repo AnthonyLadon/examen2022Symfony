@@ -16,48 +16,67 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ChansonController extends AbstractController
 {
 
-    // permet de lister les chansons présentes en base de donnée
+
+    // permet d'afficher un formulaire afin d'ajouter une chanson dans la base de données
     /**
-     * @Route("/chansons",name="liste_chansons")
-     */
-    public function listeChansons(EntityManagerInterface $entityManager): Response
-    {
-
-        $repository = $entityManager->getRepository(Chanson::class);
-        $chansons = $repository->findAll();
-        return $this->render('chanson/liste.html.twig', [
-            "chansons" => $chansons,
-        ]);
-    }
-
-
-    /**
-     * @Route("/ajout",name="ajout_chanson")
+     * @Route("chanson/ajout",name="ajoutChanson")
      */
     public function ajoutChanson(Request $request, EntityManagerInterface $entityManager): Response
     {
         $chanson = new Chanson();
         //$chanson->setDateAjout(new \DateTime('now'));
 
-
         $form = $this->createFormBuilder($chanson)
-
             ->getForm();
 
         $form = $this->createForm(ChansonType::class, $chanson);
 
+        // si le formulaire est valide il sera envoyé dans la DB
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $task = $form->getData();
+            $chanson = $form->getData();
 
-            // ... perform some action, such as saving the task to the database
+            // persist puis envoi dans la database
+            $entityManager->persist($chanson);
+            $entityManager->flush();
 
-            return $this->redirectToRoute('task_success');
+            // si tout se passe bien on retourne a la liste des chansons
+            return $this->redirectToRoute('accueil');
         }
 
+        // sinon on continue sur le formulaire
         return $this->renderForm('chanson/ajout.html.twig', [
             'form' => $form,
+        ]);
+    }
+
+
+    //permet de supprimer une chanson
+    /**
+     * @Route("/chanson/supprimer/{id}",name="supprimerChanson")
+     */
+    public function supprimerChanson($id, Chanson $chanson, EntityManagerInterface $entityManager): Response
+    {
+        $repository = $entityManager->getRepository(Chanson::class);
+        $chanson = $repository->find($id);
+
+        // on a récupéré la chanson via l'entityManager mainteant on peut l'effacer de la DB
+        $entityManager->remove($chanson);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('accueil');
+    }
+
+    // Permet de voir les details de la chanson selctionnée
+    /**
+     * @Route("chanson/detail/{id}",name="detailChanson")
+     */
+
+    public function detailChanson(Chanson $chanson, entityManagerInterface $entityManager)
+    {
+        return $this->render('chanson/detail.html.twig', [
+            "chanson" => $chanson,
         ]);
     }
 }

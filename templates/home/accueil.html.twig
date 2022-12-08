@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+
+{% block body %}
+
+	<div class="wrapper">
+		<h1 class="mt-5 mb-5 text-center">Voici toutes nos chansons</h1>
+		{% for chanson in chansons %}
+			<div class="card">
+				<div class="card-body">
+					<a class="page-link text-center" href="{{path('detailChanson', {id:chanson.id})}}">
+						<p class="card-body">
+							{{chanson.titre}}
+							-
+							{{chanson.auteur}}</p>
+					</a>
+				</div>
+			</div>
+
+		{% endfor %}
+
+	</div>
+{% endblock %}

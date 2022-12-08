@@ -4,9 +4,9 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Ajouter une chanson</h1>
+	<h1 class="mt-5 mb-5 text-center">Ajouter une chanson</h1>
 	{# Ajout d'un theme qui decore automatiquement mes formulaire via bootstrap
-		J'ai ajouté le lien dans configuration/packages/twig.yaml #}
+				J'ai ajouté le lien dans configuration/packages/twig.yaml #}
 	{% form_theme form 'bootstrap_5_horizontal_layout.html.twig' %}
 	{{ form_start(form) }}
 
