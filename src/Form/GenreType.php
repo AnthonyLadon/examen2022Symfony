@@ -13,8 +13,7 @@ class GenreType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('description')
-        ;
+            ->add('description');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

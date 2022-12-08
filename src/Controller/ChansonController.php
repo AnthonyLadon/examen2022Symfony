@@ -24,7 +24,8 @@ class ChansonController extends AbstractController
     public function ajoutChanson(Request $request, EntityManagerInterface $entityManager): Response
     {
         $chanson = new Chanson();
-        //$chanson->setDateAjout(new \DateTime('now'));
+        // Ne fonctionne pas j'ai pas eu le temsp de régler le problème :(
+        // $chanson->setDateAjout(new \DateTime('now'));
 
         $form = $this->createFormBuilder($chanson)
             ->getForm();
