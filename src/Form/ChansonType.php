@@ -3,10 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Chanson;
+use App\Entity\Genre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ChansonType extends AbstractType
 {
@@ -18,10 +23,13 @@ class ChansonType extends AbstractType
             ->add('paroles')
             ->add('auteur')
             ->add('votes')
-            // ->add('genre', EntityType::class, [
-            //     'class' => Chanson::class,
-            //     'choices' => $chanson->getGenres(),
-            // ])
+            // permet de lister les genres présents dans la base de données
+            ->add('genre', EntityType::class, [
+                'class' => Genre::class,
+                'choice_label' => function ($genre) {
+                    return $genre->getNom();
+                }
+            ])
             ->add('ajouter', SubmitType::class, ['label' => 'Ajouter']);
     }
 
